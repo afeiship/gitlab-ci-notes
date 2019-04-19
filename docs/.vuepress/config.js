@@ -17,7 +17,7 @@ module.exports = {
       {
         title: 'Get started',
         collapsable: false,
-        children: ['/javascript/001-get-started.md', '/javascript/002-globby.md']
+        children: ['/get-started/001-gitlab-ci.yml.md']
       }
     ]
   }
