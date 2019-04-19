@@ -15,3 +15,5 @@
   stages: - build - test - deploy
   ```
 
+## resources
+- https://www.jianshu.com/p/d63d9941565f
