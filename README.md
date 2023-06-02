@@ -13,16 +13,14 @@ yarn add @jswork/mina-deploy miniprogram-ci --dev
 
 ## usage
 ```js
-import minaDeploy from '@jswork/mina-deploy';
-
-// basic options:
+const minaDeploy = require('@jswork/mina-deploy');
 const pkg = require('./package.json');
 const arguments = process.argv.splice(2);
 const robot = parseInt(arguments[0]);
 
-
-minaDeploy({
-  appid: 'wxct2s4pCZrukShm4H3',
+// 1: 正式版 2: 开发版
+void minaDeploy({
+  appid: 'wx_ID',
   projectPath: './dist/build/mp-weixin',
   robot,
   version: pkg.gtcVersion
