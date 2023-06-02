@@ -23,10 +23,9 @@ const robot = parseInt(arguments[0]);
 
 minaDeploy({
   appid: 'wxct2s4pCZrukShm4H3',
-  type: 'miniProgram',
   projectPath: './dist/build/mp-weixin',
   robot,
-  pkg
+  pkg: pkg.gtcVersion
 });
 ```
 
