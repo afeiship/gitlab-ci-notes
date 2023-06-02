@@ -25,7 +25,7 @@ minaDeploy({
   appid: 'wxct2s4pCZrukShm4H3',
   projectPath: './dist/build/mp-weixin',
   robot,
-  pkg: pkg.gtcVersion
+  version: pkg.gtcVersion
 });
 ```
 

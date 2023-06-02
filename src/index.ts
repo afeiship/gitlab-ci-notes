@@ -1,4 +1,4 @@
-import ci from 'miniprogram-ci';
+import * as ci from 'miniprogram-ci';
 
 declare var wx: any;
 declare var process: any;
