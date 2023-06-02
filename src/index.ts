@@ -5,8 +5,8 @@ declare var process: any;
 
 interface Options {
   robot: number;
-  pkg: Record<string, any>;
   appid: string;
+  version: string;
   projectPath: string;
   uploadOptions?: any;
 }
@@ -32,7 +32,7 @@ async function upload(inProject, { version, robot }, inOptions?) {
 }
 
 const minaDeploy = (inOptions: Options) => {
-  const { robot, pkg, appid, projectPath, uploadOptions } = inOptions;
+  const { robot, version, appid, projectPath, uploadOptions } = inOptions;
   const project = new ci.Project({
     type: 'miniProgram',
     appid,
@@ -40,7 +40,6 @@ const minaDeploy = (inOptions: Options) => {
     privateKeyPath,
   });
 
-  const version = pkg.gtcVersion;
   return upload(project, { version, robot }, uploadOptions);
 };
 
