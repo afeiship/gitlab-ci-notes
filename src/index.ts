@@ -21,9 +21,8 @@ async function upload(inProject, { version, robot }, inOptions?) {
     version,
     desc,
     setting: {
-      es7: true,
-      minify: true,
-      autoPrefixWXSS: true,
+      es6: true,
+      minify: true
     },
     robot,
     onProgressUpdate: console.log,
