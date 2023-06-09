@@ -22,7 +22,7 @@ async function upload(inProject, { version, robot }, inOptions?) {
     desc,
     setting: {
       es6: true,
-      minify: true
+      minify: false
     },
     robot,
     onProgressUpdate: console.log,
