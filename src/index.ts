@@ -8,11 +8,13 @@ interface Options {
   appid: string;
   version: string;
   projectPath: string;
+  privateKeyPath?: string;
+  initOptions?: any;
   uploadOptions?: any;
 }
 
 const { WEIXIN_PRIVATE_KEY, CI_COMMIT_SHA, GITLAB_USER_LOGIN } = process.env;
-const privateKeyPath = WEIXIN_PRIVATE_KEY;
+// const privateKeyPath = WEIXIN_PRIVATE_KEY;
 
 async function upload(inProject, { version, robot }, inOptions?) {
   const desc = [`🎉: ${version}`, `🐶: ${GITLAB_USER_LOGIN}`, `🐛: ${CI_COMMIT_SHA}`].join(' ');
@@ -22,7 +24,7 @@ async function upload(inProject, { version, robot }, inOptions?) {
     desc,
     setting: {
       es6: true,
-      minify: false
+      minify: false,
     },
     robot,
     onProgressUpdate: console.log,
@@ -31,12 +33,13 @@ async function upload(inProject, { version, robot }, inOptions?) {
 }
 
 const minaDeploy = (inOptions: Options) => {
-  const { robot, version, appid, projectPath, uploadOptions } = inOptions;
+  const { robot, version, appid, projectPath, privateKeyPath, initOptions, uploadOptions } = inOptions;
   const project = new ci.Project({
     type: 'miniProgram',
     appid,
     projectPath,
-    privateKeyPath,
+    privateKeyPath: privateKeyPath || WEIXIN_PRIVATE_KEY,
+    ...initOptions,
   });
 
   return upload(project, { version, robot }, uploadOptions);
