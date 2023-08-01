@@ -27,7 +27,7 @@ async function upload(inProject, { version, robot }, inOptions?) {
       minify: false,
     },
     robot,
-    onProgressUpdate: console.log,
+    // onProgressUpdate: console.log,
     ...inOptions,
   });
 }
