@@ -1,4 +1,5 @@
 import * as ci from 'miniprogram-ci';
+import analyse from './analyse';
 
 declare var wx: any;
 declare var process: any;
@@ -11,9 +12,11 @@ interface Options {
   privateKeyPath?: string;
   initOptions?: any;
   uploadOptions?: any;
+  hasAnalyse?: boolean;
 }
 
 const { WEIXIN_PRIVATE_KEY, CI_COMMIT_SHA, GITLAB_USER_LOGIN } = process.env;
+const defaults = { robot: 1, hasAnalyse: false, privateKeyPath: WEIXIN_PRIVATE_KEY };
 // const privateKeyPath = WEIXIN_PRIVATE_KEY;
 
 async function upload(inProject, { version, robot }, inOptions?) {
@@ -33,14 +36,20 @@ async function upload(inProject, { version, robot }, inOptions?) {
 }
 
 const minaDeploy = (inOptions: Options) => {
-  const { robot, version, appid, projectPath, privateKeyPath, initOptions, uploadOptions } = inOptions;
+  const { robot, version, appid, projectPath, privateKeyPath, initOptions, uploadOptions, hasAnalyse } = {
+    ...defaults,
+    ...inOptions,
+  };
+
   const project = new ci.Project({
     type: 'miniProgram',
     appid,
     projectPath,
-    privateKeyPath: privateKeyPath || WEIXIN_PRIVATE_KEY,
+    privateKeyPath,
     ...initOptions,
   });
+
+  if (hasAnalyse) analyse(project);
 
   return upload(project, { version, robot }, uploadOptions);
 };
