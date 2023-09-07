@@ -12,11 +12,11 @@ interface Options {
   privateKeyPath?: string;
   initOptions?: any;
   uploadOptions?: any;
-  hasAnalyse?: boolean;
+  skipAnalyse?: boolean;
 }
 
 const { WEIXIN_PRIVATE_KEY, CI_COMMIT_SHA, GITLAB_USER_LOGIN } = process.env;
-const defaults = { robot: 1, hasAnalyse: false, privateKeyPath: WEIXIN_PRIVATE_KEY };
+const defaults = { robot: 1, skipAnalyse: false, privateKeyPath: WEIXIN_PRIVATE_KEY };
 // const privateKeyPath = WEIXIN_PRIVATE_KEY;
 
 async function upload(inProject, { version, robot }, inOptions?) {
@@ -36,7 +36,7 @@ async function upload(inProject, { version, robot }, inOptions?) {
 }
 
 const minaDeploy = (inOptions: Options) => {
-  const { robot, version, appid, projectPath, privateKeyPath, initOptions, uploadOptions, hasAnalyse } = {
+  const { robot, version, appid, projectPath, privateKeyPath, initOptions, uploadOptions, skipAnalyse } = {
     ...defaults,
     ...inOptions,
   };
@@ -49,7 +49,7 @@ const minaDeploy = (inOptions: Options) => {
     ...initOptions,
   });
 
-  if (hasAnalyse) analyse(project);
+  if (!skipAnalyse) analyse(project);
 
   return upload(project, { version, robot }, uploadOptions);
 };
